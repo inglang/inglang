@@ -1,0 +1,24 @@
+{
+  "name": "inglang",
+  "version": "1.0.0",
+  "description": "<!--\r **inglang/inglang** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inglang/inglang.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/inglang/inglang/issues"
+  },
+  "homepage": "https://github.com/inglang/inglang#readme",
+  "dependencies": {
+    "@types/node": "17.0.21",
+    "ts-node": "10.7.0",
+    "typescript": "4.6.2"
+  }
+}
