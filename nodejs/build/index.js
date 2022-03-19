@@ -34,9 +34,9 @@ function run(text) {
         return e.trim();
     });
     if (codesSrc.shift() !== "짤녀 누구?")
-        throw new Error("너 잉친이 아니지");
+        throw new Error("너 잉친이 아니지 , " + currentLine);
     if (codesSrc.pop() !== "그래도 우정잉 짱~")
-        throw new Error("너 잉친이 아니지");
+        throw new Error("너 잉친이 아니지 , " + currentLine);
     for (currentLine = 0; currentLine < codesSrc.length; currentLine++) {
         if (currentLine < 0)
             currentLine = 0;
@@ -53,7 +53,7 @@ function excute(code) {
         return;
     var ban = bans.find(function (v) { return code.match(v); });
     if (ban)
-        throw new Error("너 밴");
+        throw new Error("너 밴 , " + currentLine);
     var statement = statements.find(function (v) { return code.startsWith(v); });
     if (isIf) {
         if (code == "전 그렇게 생각안해요")
@@ -69,7 +69,7 @@ function excute(code) {
         return;
     }
     if (!statement)
-        throw new Error("나 다운게 뭔데? " + currentLine);
+        throw new Error("나 다운게 뭔데? , " + currentLine);
     code = code.replace(statement, "").trim();
     switch (statement) {
         case "사실":
@@ -99,7 +99,7 @@ function declareFunc(code) {
     var codeList = code.split(" ");
     if (!((codeList[1] == "은" || codeList[1] == "는") &&
         (codeList.slice(-1)[0] == "걸랑" || codeList.slice(-1)[0] == "이걸랑")))
-        throw new Error("이래서 유입은 안된다니까 " + currentLine);
+        throw new Error("이래서 유입은 안된다니까 , " + currentLine);
     variables.set(codeList[0], getNumber(codeList.slice(2, -1)));
 }
 function printFunc(code) {
@@ -155,7 +155,7 @@ function getNumber(codeList) {
             default:
                 var t = variables.get(codeList[i]);
                 if (t == undefined)
-                    throw new Error("어라랍스타? " + currentLine);
+                    throw new Error("어라랍스타? , " + currentLine);
                 temp += t;
                 break;
         }
