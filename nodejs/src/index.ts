@@ -3,6 +3,8 @@ let codesSrc: string[] = []
 let result : string = ""
 let printFlag : boolean = false
 let printUniFlag : boolean = false
+let currentLine = 0
+let isIf = false
 const statements = [
   "사실",
   "잘봐 내",
@@ -10,6 +12,7 @@ const statements = [
   "다 니가 만든거잖아",
   "어디 바뀐거없어?",
   "전 그렇게 생각안해요",
+  "잉친아",
 ]
 const bans = [
   "이쁘다",
@@ -32,11 +35,16 @@ function run(text : string){
     return e.trim();
   })
 
-  if (codesSrc.shift() !== "짤녀 누구?") throw new Error("너 잉친이 아니지")
+  if (codesSrc.shift() !== "짤녀 누구?") throw new Error("너 잉친이 아니지" )
   if (codesSrc.pop() !== "그래도 우정잉 짱~") throw new Error("너 잉친이 아니지")
 
-  for(var i = 0; i<codesSrc.length; i++){
-    excute(codesSrc[i])
+  for(currentLine = 0; currentLine<codesSrc.length; currentLine++){
+    if(currentLine < 0) currentLine = 0
+    console.log(codesSrc[currentLine],currentLine)
+    var jump: number|void = excute(codesSrc[currentLine])
+    if(jump){
+      currentLine += jump
+    }
   }
 
   return result
@@ -48,6 +56,11 @@ function excute(code : string){
   const ban = bans.find((v) => code.match(v))
   if(ban) throw new Error("너 밴")
   const statement = statements.find((v) => code.startsWith(v))
+
+  if(isIf){
+    if(code == "전 그렇게 생각안해요") isIf = false
+    return
+  }
   
   if(!statement && printFlag){
     printFunc(code)
@@ -56,7 +69,9 @@ function excute(code : string){
     printUniFunc(code)
     return
   }
-  if(!statement) throw new Error("나 다운게 뭔데?")
+  if(!statement) throw new Error("나 다운게 뭔데? " + currentLine)
+
+  code = code.replace(statement,"").trim()
 
   switch(statement){
     case "사실":
@@ -72,24 +87,31 @@ function excute(code : string){
       break
 
     case "다 니가 만든거잖아":
+      printEndFunc()
       break
 
     case "어디 바뀐거없어?":
+      if(getNumber(code.split(" ")) != 0) isIf = true
       break
 
     case "전 그렇게 생각안해요":
+      isIf = false
       break
+
+    case "잉친아":
+      return getNumber(code.split(" "))
 
   }
 }
 
 function declareFunc(code: string){
   let codeList = code.split(" ") 
-  if(!((codeList[2] == "은" || codeList[2] == "는") &&
+  if(!((codeList[1] == "은" || codeList[1] == "는") &&
     (codeList.slice(-1)[0] == "걸랑" || codeList.slice(-1)[0] == "이걸랑"))
-  ) throw new Error("이래서 유입은 안된다니까")
+  ) throw new Error("이래서 유입은 안된다니까 " + currentLine)
   
-  variables.set(codeList[1],getNumber(codeList.slice(3,-1)))
+  
+  variables.set(codeList[0],getNumber(codeList.slice(2,-1)))
 }
 
 function printFunc(code: string){
@@ -114,12 +136,17 @@ function printEndFunc(){
   result += "\n"
 }
 
+function getUnicode(num: number){
+  return String.fromCharCode(num)
+}
+
 function getNumber(codeList: string[]){
   var temp = 0
   var result = 1
   for(var i=0; i<codeList.length; i++){
-    console.log(codeList[i])
     switch(codeList[i]){
+      case "" :
+        break
       case "비제잉" :
         break
 
@@ -150,15 +177,11 @@ function getNumber(codeList: string[]){
 
       default:
         var t = variables.get(codeList[i])
-        if(t == undefined) throw new Error("어라랍스타?")
+        if(t == undefined) throw new Error("어라랍스타? " + currentLine)
         temp += t
         break
     }
   }
   result *= temp
   return result
-}
-
-function getUnicode(num: number){
-  return String.fromCharCode(num)
 }
