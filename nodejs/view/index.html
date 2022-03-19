@@ -1,8 +1,28 @@
 <!DOCTYPE html>
 <html>
-<body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
-<script src="../build/index.js"></script>
-</body>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../build/index.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <p><textarea id="inputText" cols="100" rows="20"></textarea></p>
+    <p><input id="transBtn" type="submit" value="Submit"/></p>
+    <p><textarea id="resultText" cols="100" rows="10"></textarea></p>
+
+
+    <script type="text/javascript">
+      var inputText = document.getElementById('inputText');
+      var transBtn = document.getElementById("transBtn");
+      var resultText = document.getElementById("resultText");
+
+      inputText.value = `짤녀 누구?
+잘봐 내
+복수연
+다 니가 만든거잖아
+그래도 우정잉 짱~`
+      transBtn.addEventListener('click', function(){
+        translate(inputText,resultText)
+      })
+    </script>
+  </body>
 </html>
