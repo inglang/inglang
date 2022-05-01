@@ -1,27 +1,64 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <script type="text/javascript" src="../build/index.js" charset="utf-8"></script>
+    <style type="text/css" media="screen">
+      #editor {
+        font-size: 13px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 600px;
+        height: 800px;
+        padding: 10px;
+      }
+      #resultText {
+        font-size: 17px;
+        width: 600px;
+        height: 800px;
+        padding: 10px;
+      }
+      #containor {
+        display: flex;
+        justify-content: center;
+      }
+      #transBtn {
+        width: 100px;
+        margin: 20px;
+      }
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script
+      type="text/javascript"
+      src="../build/index.js"
+      charset="utf-8"
+    ></script>
   </head>
   <body>
-    <p><textarea id="inputText" cols="100" rows="20"></textarea></p>
-    <p><input id="transBtn" type="submit" value="Submit"/></p>
-    <p><textarea id="resultText" cols="100" rows="12"></textarea></p>
+    <div id="concontainor">
+      <div id="containor">
+        <div id="editor"></div>
+        <textarea id="resultText" cols="100" rows="12"></textarea>
+      </div>
+      <input id="transBtn" type="submit" value="Submit" />
+    </div>
 
-
+    <script
+      src="https://pagecdn.io/lib/ace/1.4.14/ace.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
     <script type="text/javascript">
-      var inputText = document.getElementById('inputText');
+      var editor = ace.edit("editor");
+      editor.setTheme("ace/theme/monokai");
+      editor.resize();
+
       var transBtn = document.getElementById("transBtn");
       var resultText = document.getElementById("resultText");
 
-      inputText.value = `짤녀 누구?
-
-
-그래도 우정잉 짱~`
-      transBtn.addEventListener('click', function(){
-        translate(inputText,resultText)
-      })
+      transBtn.addEventListener("click", () => {
+        translate({ value: editor.getValue() }, resultText);
+      });
     </script>
   </body>
 </html>
