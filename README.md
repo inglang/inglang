@@ -2,8 +2,8 @@
 
 현재 진행된 프로젝트는
 
-1.[inglang](https://github.com/inglang/inglang/blob/main/nodejs/inglang_README.md)
+1. [inglang](https://github.com/inglang/inglang/blob/main/nodejs/inglang_README.md)
 
-2.[jakae(짤 전투력측정)](https://github.com/inglang/inglang/blob/main/nodejs/jakae_README.md)
+1. [jakae(짤 전투력측정)](https://github.com/inglang/inglang/blob/main/nodejs/jakae_README.md)
 
 단 두개입니다.
