@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css" media="screen">
+      #resultText {
+        font-size: 17px;
+        height: 200px;
+        padding: 10px;
+      }
+      #container {
+        width: 100%;
+        margin: auto;
+        justify-content: center;
+      }
+      #uploadBtn {
+        width: 500px;
+        margin: 20px;
+      }
+      #result-text {
+        text-align: center;
+      }
+      .image-box{
+        object-fit:contain;
+      }
+      .file-box {
+        padding: 10px;
+        width: 500px;
+        margin:0 auto;
+      }
+      #file {
+        width: 500px;
+      }
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script
+      type="text/javascript"
+      src="../build/jakae.js"
+      charset="utf-8"
+    ></script>
+  </head>
+  <body>
+    <div id="container">
+      <div class="wrapper">
+        <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box" width="100%" height="500px" />
+      </div>
+      <div class="file-box">
+          <input id="file" type="file" accept="image/*"/>
+      </div>
+      <!-- <textarea id="resultText" cols="50" rows="12"></textarea> -->
+      <p id="result-text">
+
+      </p>
+
+    </div>
+
+    <script type="text/javascript">
+      const fileDOM = document.querySelector('#file');
+      const preview = document.querySelector('.image-box');
+      const result = document.getElementById('result-text');
+
+      fileDOM.addEventListener('change', () => {
+        const reader = new FileReader();
+        reader.onload = ({ target }) => {
+          preview.src = target.result;
+          result.innerText = "현재 짤의 전투력은 " + getScore(SHA256(target.result.split(',')[1])) + " 점 입니다.";
+        };
+        reader.readAsDataURL(fileDOM.files[0]);
+      });
+    </script>
+  </body>
+</html>

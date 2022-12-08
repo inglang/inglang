@@ -186,4 +186,4 @@ function getNumber(codeList, inBracket) {
     result *= temp;
     return [result, i];
 }
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=inglang.js.map
